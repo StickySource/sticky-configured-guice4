@@ -1,4 +1,4 @@
-package net.stickycode.configured.guice3.strategy;
+package net.stickycode.configured.guice4.strategy;
 
 import java.beans.Introspector;
 import java.lang.reflect.Type;

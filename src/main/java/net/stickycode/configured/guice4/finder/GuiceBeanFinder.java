@@ -1,4 +1,4 @@
-package net.stickycode.configured.guice3.finder;
+package net.stickycode.configured.guice4.finder;
 
 import javax.inject.Inject;
 
