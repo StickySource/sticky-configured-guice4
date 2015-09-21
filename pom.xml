@@ -10,7 +10,7 @@
 
 	<groupId>net.stickycode.configured</groupId>
 	<artifactId>sticky-configured-guice4</artifactId>
-	<version>1.4-SNAPSHOT</version>
+	<version>1.5-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>sticky-configured-guice4-1</name>
@@ -41,13 +41,13 @@
 		<dependency>
 			<groupId>net.stickycode.configured</groupId>
 			<artifactId>sticky-configured</artifactId>
-			<version>[6.2,7)</version>
+			<version>[6.3,7)</version>
 		</dependency>
 
 		<dependency>
 			<groupId>net.stickycode.bootstrap</groupId>
 			<artifactId>sticky-bootstrap-guice4</artifactId>
-			<version>[3.1,4)</version>
+			<version>[3.3,4)</version>
 		</dependency>
 	</dependencies>
 </project>
