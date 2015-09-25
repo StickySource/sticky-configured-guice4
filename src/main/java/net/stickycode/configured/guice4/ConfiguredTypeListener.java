@@ -14,20 +14,16 @@ package net.stickycode.configured.guice4;
 
 import javax.inject.Inject;
 
-import net.stickycode.metadata.MetadataResolverRegistry;
-import net.stickycode.stereotype.StickyComponent;
-import net.stickycode.stereotype.StickyFramework;
-import net.stickycode.stereotype.configured.Configured;
-import net.stickycode.stereotype.configured.ConfiguredStrategy;
-import net.stickycode.stereotype.configured.PostConfigured;
-import net.stickycode.stereotype.configured.PreConfigured;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
+
+import net.stickycode.configured.ConfiguredMetadata;
+import net.stickycode.stereotype.StickyComponent;
+import net.stickycode.stereotype.StickyFramework;
 
 @StickyComponent
 @StickyFramework
@@ -40,34 +36,19 @@ public class ConfiguredTypeListener
   private ConfiguredInjector membersInjector;
 
   @Inject
-  MetadataResolverRegistry metdataResolverRegistry;
+  ConfiguredMetadata annotations;
 
   @Override
   public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-    if (typeIsConfigured(type.getRawType())) {
-      if (membersInjector == null)
-        throw new AssertionError("On hearing " + type + " found that " + getClass().getSimpleName() + " was not injected with a "
-            + ConfiguredInjector.class.getSimpleName());
+    if (annotations != null) // happens when guice is starting up
+      if (annotations.typeIsConfigured(type.getRawType())) {
+        if (membersInjector == null)
+          throw new AssertionError("On hearing " + type + " found that " + getClass().getSimpleName() + " was not injected with a "
+              + ConfiguredInjector.class.getSimpleName());
 
-      encounter.register(membersInjector);
-      log.debug("encountering {} registering injector {}", type, membersInjector);
-    }
+        encounter.register(membersInjector);
+        log.debug("encountering {} registering injector {}", type, membersInjector);
+      }
   }
 
-  private boolean typeIsConfigured(Class<?> type) {
-    if (metdataResolverRegistry == null)
-      return false;
-
-    if (metdataResolverRegistry
-        .does(type)
-        .haveAnyFieldsMetaAnnotatedWith(Configured.class, ConfiguredStrategy.class))
-      return true;
-
-    if (metdataResolverRegistry
-        .does(type)
-        .haveAnyMethodsMetaAnnotatedWith(PreConfigured.class, PostConfigured.class))
-      return true;
-
-    return false;
-  }
 }
