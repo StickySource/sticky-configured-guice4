@@ -10,7 +10,7 @@
 
   <groupId>net.stickycode.configured</groupId>
   <artifactId>sticky-configured-guice4</artifactId>
-  <version>1.6</version>
+  <version>1.7-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>sticky-configured-guice4-1</name>
@@ -20,7 +20,7 @@
 
   <scm>
     <developerConnection>${git.url}</developerConnection>
-    <tag>sticky-configured-guice4-1.6</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencies>
